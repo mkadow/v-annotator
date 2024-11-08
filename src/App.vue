@@ -1,5 +1,28 @@
 <template>
   <div id="app" style="width: 1000px; background-color: #eee">
+    <table>
+      <tr>
+        <td>entities</td>
+        <td>{{ entities }}</td>
+      </tr>
+      <tr>
+        <td>relations</td>
+        <td>{{ relations }}</td>
+      </tr>
+
+      <tr>
+        <td>entityLabels</td>
+        <td>{{ entityLabels }}</td>
+      </tr>
+
+      <tr>
+        <td>relationLabels</td>
+        <td>{{ relationLabels }}</td>
+      </tr>
+    </table>
+
+    <hr />
+
     <button @click="changeText">Change text</button>
     <button @click="resetEntity">Reset entity</button>
     <button @click="changeLabel">Change label</button>
@@ -27,7 +50,7 @@
       />
     </div>
     <div style="width: 400px; display: inline-block">
-      <v-annotator
+      <!-- <v-annotator
         :allow-overlapping="allowOverlapping"
         :text="text2"
         :entities="entities2"
@@ -38,7 +61,7 @@
         :rtl="rtl"
         @add:entity="addEntity2"
         @contextmenu:entity="deleteEntity2"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -145,43 +168,53 @@ export default Vue.extend({
           id: 2,
           fromId: 5,
           toId: 4,
-          labelId: 0,
+          labelId: 1,
         },
         {
           id: 3,
           fromId: 1,
           toId: 6,
-          labelId: 1,
+          labelId: 2,
         },
         {
           id: 4,
           fromId: 1,
           toId: 7,
-          labelId: 1,
+          labelId: 3,
         },
       ],
       entityLabels: [
         {
           id: 0,
-          text: "VeryLongLabelWithManyCharacters",
+          text: "L1",
           color: "#2196F3",
         },
         {
           id: 1,
-          text: "Ipsum",
+          text: "L2",
           color: "#F9A825",
         },
       ],
       relationLabels: [
         {
           id: 0,
-          text: "superLongRelationLabel",
+          text: "Rel_1",
           color: "#ffffff",
         },
         {
           id: 1,
-          text: "isLivedIn",
-          color: "#ffffff",
+          text: "Re_2",
+          color: "#faafff",
+        },
+        {
+          id: 2,
+          text: "Re_3",
+          color: "#faafff",
+        },
+        {
+          id: 3,
+          text: "Re_4",
+          color: "#faafff",
         },
       ],
 
@@ -199,6 +232,7 @@ export default Vue.extend({
   },
 
   computed: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedEntities(): any[] {
       return [this.entities[0], this.entities[1]];
     },
@@ -229,7 +263,8 @@ export default Vue.extend({
       });
     },
     changeText() {
-      this.text = "The president Obama came to Japan.";
+      this.text =
+        "The president Obama came to Japan.\nHe also visited Hiroshima.";
       this.resetEntity();
     },
     resetEntity() {
@@ -275,3 +310,19 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style>
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+}
+</style>
